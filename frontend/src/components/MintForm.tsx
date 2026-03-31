@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { uploadSkillMetadata } from '@/lib/skillApi';
 import { mintSkillOnChain } from '@/lib/sorobanMint';
+import { toReadableErrorMessage } from '@/lib/errorUtils';
 import type { MintResult, TransactionPhase } from '@/types/skill';
 import { TransactionStatus } from '@/components/TransactionStatus';
 import { UploadModal } from '@/components/UploadModal';
@@ -36,66 +37,17 @@ const statusText: Record<TransactionPhase, string> = {
   failed: 'Mint failed. Please retry.',
 };
 
-const toReadableMessage = (error: unknown): string => {
-  if (typeof error === 'string' && error.trim()) {
-    return error;
-  }
 
-  if (error instanceof Error) {
-    if (error.message && error.message !== '[object Object]') {
-      return error.message;
-    }
 
-    const maybePayload = error.cause;
-    if (maybePayload && typeof maybePayload === 'object') {
-      const nested = (maybePayload as Record<string, unknown>).message;
-      if (typeof nested === 'string' && nested.trim()) {
-        return nested;
-      }
-    }
-  }
 
-  if (error && typeof error === 'object') {
-    const payload = error as Record<string, unknown>;
-    const candidates = [payload.reason, payload.error, payload.message];
 
-    for (const candidate of candidates) {
-      if (typeof candidate === 'string' && candidate.trim()) {
-        return candidate;
-      }
 
-      if (candidate && typeof candidate === 'object') {
-        const nested = (candidate as Record<string, unknown>).message;
-        if (typeof nested === 'string' && nested.trim()) {
-          return nested;
-        }
 
-        try {
-          const serialized = JSON.stringify(candidate);
-          if (serialized && serialized !== '{}') {
-            return serialized;
-          }
-        } catch {
-          // Ignore and keep searching for a readable error value.
-        }
-      }
-    }
 
-    try {
-      const serialized = JSON.stringify(payload);
-      if (serialized && serialized !== '{}') {
-        return serialized;
-      }
-    } catch {
-      // Ignore and fall back to generic message.
-    }
-  }
 
-  return 'Unexpected mint error';
-};
 
 const toMintErrorMessage = (error: unknown): string => {
-  const message = toReadableMessage(error);
+  const message = toReadableErrorMessage(error, 'Unexpected mint error');
   const lowered = message.toLowerCase();
 
   if (lowered.includes('ipfs')) {

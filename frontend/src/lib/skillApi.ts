@@ -1,4 +1,5 @@
 import type { SkillNFT, UploadResponse } from '@/types/skill';
+import { toReadableErrorMessage } from '@/lib/errorUtils';
 
 const BACKEND_URL =
   process.env.NEXT_PUBLIC_BACKEND_URL ||
@@ -10,39 +11,6 @@ interface UploadPayload {
   description: string;
   proof: string;
   file: File | null;
-}
-
-function toErrorMessage(raw: unknown, fallback: string): string {
-  if (!raw || typeof raw !== 'object') {
-    return fallback;
-  }
-
-  const payload = raw as Record<string, unknown>;
-  const candidates = [payload.reason, payload.error, payload.message];
-
-  for (const candidate of candidates) {
-    if (typeof candidate === 'string' && candidate.trim()) {
-      return candidate;
-    }
-
-    if (candidate && typeof candidate === 'object') {
-      const nestedMessage = (candidate as Record<string, unknown>).message;
-      if (typeof nestedMessage === 'string' && nestedMessage.trim()) {
-        return nestedMessage;
-      }
-
-      try {
-        const serialized = JSON.stringify(candidate);
-        if (serialized && serialized !== '{}') {
-          return serialized;
-        }
-      } catch {
-        // Ignore serialization failures and continue to fallback.
-      }
-    }
-  }
-
-  return fallback;
 }
 
 function toSkillNFT(rawSkill: unknown): SkillNFT | null {
@@ -85,7 +53,7 @@ export async function uploadSkillMetadata(payload: UploadPayload): Promise<Uploa
 
   if (!response.ok) {
     const error = await response.json().catch(() => null);
-    throw new Error(toErrorMessage(error, 'Upload failed'));
+    throw new Error(toReadableErrorMessage(error, 'Upload failed'));
   }
 
   return (await response.json()) as UploadResponse;
@@ -96,7 +64,7 @@ export async function fetchSkillsByWallet(wallet: string): Promise<SkillNFT[]> {
 
   if (!response.ok) {
     const error = await response.json().catch(() => null);
-    throw new Error(toErrorMessage(error, 'Failed to fetch wallet skills'));
+    throw new Error(toReadableErrorMessage(error, 'Failed to fetch wallet skills'));
   }
 
   const data = (await response.json()) as { wallet: string; skills: unknown[] };
