@@ -3,8 +3,11 @@
 ## Tagline
 Mint your skills as verifiable on-chain credentials.
 
-## Live Demo
-- https://your-live-demo.vercel.app
+## Live Video Demo
+- https://drive.google.com/file/d/1Jzg5VHMj6uX1xNPIMx3Nr41zxQhy_tHh/view?usp=drive_link
+
+## Live Demo(Deployed on Vercel)
+
 
 ## Problem Statement
 Hiring still depends on resumes and portfolio links that are easy to fake and hard to verify. Recruiters, DAOs, and communities spend significant time validating claims that should be cryptographically provable.
