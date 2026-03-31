@@ -3,6 +3,9 @@
 ## Tagline
 Mint your skills as verifiable on-chain credentials.
 
+## Live Demo
+- https://your-live-demo.vercel.app
+
 ## Problem Statement
 Hiring still depends on resumes and portfolio links that are easy to fake and hard to verify. Recruiters, DAOs, and communities spend significant time validating claims that should be cryptographically provable.
 
@@ -61,6 +64,30 @@ Mint transaction visible on Stellar Expert.
 
 ![Minted and Verified Skill](image-2.png)
 Minted skill displayed as a verifiable credential.
+
+## Test Output (3+ Passing)
+Run tests from the repository root:
+
+```bash
+npm test
+```
+
+Expected passing summary:
+
+```text
+✓ frontend/src/lib/errorUtils.test.ts (3)
+✓ frontend/src/lib/utils.test.ts (3)
+
+Test Files  2 passed (2)
+Tests       6 passed (6)
+```
+
+Screenshot placeholder (replace with your latest test screenshot before submission):
+
+![Test Output Screenshot](image-1.png)
+
+## Demo Video
+- https://www.loom.com/share/your-demo-video-id
 
 ## Environment Setup
 
@@ -126,3 +153,4 @@ Portable, verifiable skill credentials reduce trust friction in hiring and help 
 - Production-safe env templates are included for frontend and backend.
 - Secrets are excluded from tracked files.
 - Mint, dashboard, and profile flows are wired to live backend endpoints.
+- Unit tests are included and executable via root `npm test`.
