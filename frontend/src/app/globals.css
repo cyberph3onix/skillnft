@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  color: #000000;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+/* Neo-Brutalism Base Components */
+@layer components {
+  /* Brutal Button */
+  .btn-brutal {
+    @apply px-6 py-4 border-4 border-black bg-black text-white font-grotesk font-bold text-lg;
+    @apply transition-all duration-150 ease-out;
+    @apply hover:shadow-brutal hover:translate-x-1 hover:translate-y-1;
+    @apply active:translate-x-0 active:translate-y-0;
+    @apply hover:bg-accent-yellow hover:text-black hover:border-black;
+  }
+
+  .btn-brutal-yellow {
+    @apply px-6 py-4 border-4 border-black bg-accent-yellow text-black font-grotesk font-bold text-lg;
+    @apply transition-all duration-150 ease-out;
+    @apply hover:shadow-brutal hover:translate-x-1 hover:translate-y-1;
+    @apply active:translate-x-0 active:translate-y-0;
+  }
+
+  .btn-brutal-blue {
+    @apply px-6 py-4 border-4 border-black bg-accent-blue text-white font-grotesk font-bold text-lg;
+    @apply transition-all duration-150 ease-out;
+    @apply hover:shadow-brutal hover:translate-x-1 hover:translate-y-1;
+    @apply active:translate-x-0 active:translate-y-0;
+  }
+
+  /* Brutal Card */
+  .card-brutal {
+    @apply border-4 border-black bg-white p-6;
+    @apply shadow-brutal;
+    @apply transition-all duration-200;
+  }
+
+  .card-brutal:hover {
+    @apply shadow-brutal-lg translate-y-[-4px];
+  }
+
+  /* Brutal Container */
+  .container-brutal {
+    @apply border-4 border-black bg-secondary;
+    @apply p-8;
+    @apply shadow-brutal;
+  }
+
+  /* Heading Styles */
+  h1 {
+    @apply font-grotesk font-bold text-5xl md:text-7xl lg:text-8xl;
+    @apply leading-tight;
+    @apply tracking-tighter;
+  }
+
+  h2 {
+    @apply font-grotesk font-bold text-4xl md:text-5xl lg:text-6xl;
+    @apply leading-tight;
+  }
+
+  h3 {
+    @apply font-grotesk font-bold text-2xl md:text-3xl;
+  }
+
+  h4 {
+    @apply font-grotesk font-bold text-xl;
+  }
+
+  /* Text Utilities */
+  .text-mono {
+    @apply font-mono;
+  }
+
+  .text-brutalist {
+    @apply text-black border-b-4 border-black inline-block pb-1;
+  }
+}
+
+/* Smooth scroll for Lenis */
+html.lenis {
+  height: auto;
+}
+
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Animation classes */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-brutal {
+  0%, 100% {
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 1);
+  }
+  50% {
+    box-shadow: 12px 12px 0px rgba(0, 0, 0, 1);
+  }
+}
+
+.animate-slide-in-down {
+  animation: slideInDown 0.5s ease-out;
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.5s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.5s ease-out;
+}
+
+.animate-pulse-brutal {
+  animation: pulse-brutal 2s infinite;
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  .btn-brutal,
+  .btn-brutal-yellow,
+  .btn-brutal-blue {
+    @apply px-4 py-3 text-base;
+  }
+}
